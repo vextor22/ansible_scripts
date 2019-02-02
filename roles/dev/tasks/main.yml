@@ -1,0 +1,48 @@
+---
+# tasks file for dev
+- name: Install Git
+  package: name=git state=latest
+  become: yes
+- name: Install Vim
+  package: name=vim state=latest
+  become: yes
+- name: Install ansible
+  package: name=ansible state=latest
+  become: yes
+
+- name: Check for vimrc
+  stat:
+      path: ~/.vimrc
+  register: stat_vimrc
+
+- name: Copy in if not exist
+  copy:
+      src: .vimrc
+      dest: ~/.vimrc
+  when: stat_vimrc.stat.exists == False
+
+- name: Create colors dir
+  shell: mkdir -p ~/.vim/colors
+
+- name: Get molokai colorscheme
+  get_url:
+      url: https://raw.githubusercontent.com/tomasr/molokai/master/colors/molokai.vim
+      dest: ~/.vim/colors
+
+- name: Create pathogen dir
+  shell: mkdir -p ~/.vim/autoload ~/.vim/bundle 
+- name: Pull pathogen
+  shell: curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+- name: check for pathogen in vimrc
+  shell: "cat ~/.vimrc | grep pathogen#infect\\(\\) | wc -l"
+  register: pathogen_present
+
+- debug: msg="{{pathogen_present.stdout}}"
+
+- name: Add pathogen to vimrc if not present
+  lineinfile:
+      path: ~/.vimrc
+      insertbefore: BOF
+      line: execute pathogen#infect()
+
+  when: pathogen_present.stdout == 0
