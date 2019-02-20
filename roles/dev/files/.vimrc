@@ -14,3 +14,4 @@ set incsearch           " search as characters are entered
 set hlsearch            " highlight matches
 nnoremap <leader><space> :nohlsearch<CR>
 colorscheme molokai
+set laststatus=2

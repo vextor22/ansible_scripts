@@ -9,19 +9,6 @@
 - name: Install ansible
   package: name=ansible state=latest
   become: yes
-- name: Install mysql
-  package: name=mariadb state=latest
-  become: yes
-- name: setup mariadb
-  shell: mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
-  become: yes
-
-- name: enable mariadb
-  service: 
-      name: mariadb
-      state: started
-      enabled: yes
-  become: yes
 
 - name: Check for vimrc
   stat:
@@ -56,6 +43,45 @@
   lineinfile:
       path: ~/.vimrc
       insertbefore: BOF
-      line: execute pathogen#infect()
+      line: "execute pathogen#infect()"
+  when: pathogen_present.stdout == "0"
 
-  when: pathogen_present.stdout == 0
+- name: Vim - Install Lightline
+  git:
+      repo: git@github.com:itchyny/lightline.vim.git
+      dest: ~/.vim/bundle/lightline.vim
+      clone: yes
+      update: yes
+
+- name: Vim - Install Nerdtree
+  git:
+      repo: https://github.com/scrooloose/nerdtree.git 
+      dest: ~/.vim/bundle/nerdtree
+      clone: yes
+      update: yes
+
+- name: Vim - Install Ale
+  git:
+      repo: https://github.com/w0rp/ale.git
+      dest: ~/.vim/bundle/ale
+      clone: yes
+      update: yes
+
+- name: Vim - Install Gitgutter
+  git:
+      repo: git@github.com:airblade/vim-gitgutter.git
+      dest: ~/.vim/bundle/vim-gitgutter
+      clone: yes
+      update: yes
+- name: Vim - Install Emmet
+  git:
+      repo: https://github.com/mattn/emmet-vim.git
+      dest: ~/.vim/bundle/emmet
+      clone: yes
+      update: yes
+- name: Vim - Install multiple cursors
+  git:
+      repo: git@github.com:terryma/vim-multiple-cursors.git
+      dest: ~/.vim/bundle/multiple-cursors
+      clone: yes
+      update: yes
