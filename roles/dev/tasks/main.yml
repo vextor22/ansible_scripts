@@ -9,6 +9,19 @@
 - name: Install ansible
   package: name=ansible state=latest
   become: yes
+- name: Install mysql
+  package: name=mariadb state=latest
+  become: yes
+- name: setup mariadb
+  shell: mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
+  become: yes
+
+- name: enable mariadb
+  service: 
+      name: mariadb
+      state: started
+      enabled: yes
+  become: yes
 
 - name: Check for vimrc
   stat:
