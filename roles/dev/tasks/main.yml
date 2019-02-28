@@ -52,7 +52,7 @@
       dest: ~/.vim/bundle/lightline.vim
       clone: yes
       update: yes
-- name: check for pathogen in vimrc
+- name: check for laststatus in vimrc
   shell: "cat ~/.vimrc | grep laststatus=2 | wc -l"
   register: laststatus_present
 
