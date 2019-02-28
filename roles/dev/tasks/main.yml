@@ -52,6 +52,19 @@
       dest: ~/.vim/bundle/lightline.vim
       clone: yes
       update: yes
+- name: check for pathogen in vimrc
+  shell: "cat ~/.vimrc | grep laststatus=2 | wc -l"
+  register: laststatus_present
+
+- debug: msg="{{laststatus_present.stdout}}"
+
+- name: Add laststatus to vimrc if not present to fix lightline
+  lineinfile:
+      path: ~/.vimrc
+      line: "set laststatus=2"
+  when: laststatus_present.stdout == "0"
+
+
 
 - name: Vim - Install Nerdtree
   git:
