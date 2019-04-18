@@ -6,8 +6,14 @@
 - name: Install Vim
   package: name=vim state=latest
   become: yes
+- name: Install Vim
+  package: name=go state=latest
+  become: yes
 - name: Install ansible
   package: name=ansible state=latest
+  become: yes
+- name: Install ansible
+  package: name=go state=latest
   become: yes
 
 - name: Check for vimrc
@@ -96,5 +102,11 @@
   git:
       repo: git@github.com:terryma/vim-multiple-cursors.git
       dest: ~/.vim/bundle/multiple-cursors
+      clone: yes
+      update: yes
+- name: Vim - Golan Tools
+  git:
+      repo: https://github.com/fatih/vim-go.git
+      dest: ~/.vim/bundle/vim-go
       clone: yes
       update: yes
