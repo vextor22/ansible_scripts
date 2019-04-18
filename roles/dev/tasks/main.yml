@@ -6,14 +6,14 @@
 - name: Install Vim
   package: name=vim state=latest
   become: yes
-- name: Install Vim
-  package: name=go state=latest
-  become: yes
 - name: Install ansible
   package: name=ansible state=latest
   become: yes
-- name: Install ansible
+- name: Install go
   package: name=go state=latest
+  become: yes
+- name: Install docker
+  package: name=docker state=latest
   become: yes
 
 - name: Check for vimrc
