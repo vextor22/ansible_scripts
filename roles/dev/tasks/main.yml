@@ -10,7 +10,7 @@
   package: name=ansible state=latest
   become: yes
 - name: Install go
-  package: name=go state=latest
+  package: name=golang-go state=latest
   become: yes
 - name: Install docker
   package: name=docker state=latest
@@ -54,7 +54,7 @@
 
 - name: Vim - Install Lightline
   git:
-      repo: git@github.com:itchyny/lightline.vim.git
+      repo: https://github.com/itchyny/lightline.vim.git
       dest: ~/.vim/bundle/lightline.vim
       clone: yes
       update: yes
@@ -88,7 +88,7 @@
 
 - name: Vim - Install Gitgutter
   git:
-      repo: git@github.com:airblade/vim-gitgutter.git
+      repo: https://github.com/airblade/vim-gitgutter.git
       dest: ~/.vim/bundle/vim-gitgutter
       clone: yes
       update: yes
@@ -100,7 +100,7 @@
       update: yes
 - name: Vim - Install multiple cursors
   git:
-      repo: git@github.com:terryma/vim-multiple-cursors.git
+      repo: https://github.com/terryma/vim-multiple-cursors.git
       dest: ~/.vim/bundle/multiple-cursors
       clone: yes
       update: yes
