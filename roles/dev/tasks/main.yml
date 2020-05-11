@@ -9,9 +9,6 @@
 - name: Install ansible
   package: name=ansible state=latest
   become: yes
-- name: Install go
-  package: name=golang-go state=latest
-  become: yes
 - name: Install docker
   package: name=docker state=latest
   become: yes
@@ -110,3 +107,8 @@
       dest: ~/.vim/bundle/vim-go
       clone: yes
       update: yes
+
+- name: Start docker
+  systemd: 
+    state: started
+    name: docker

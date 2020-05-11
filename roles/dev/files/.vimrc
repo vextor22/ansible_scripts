@@ -24,3 +24,7 @@ nnoremap <leader>a :cclose<CR>
 
 autocmd FileType go nmap <leader>b  <Plug>(go-build)
 autocmd FileType go nmap <leader>r  <Plug>(go-run)
+
+au VimEnter * NERDTree
+
+let g:user_emmet_leader_key=','
