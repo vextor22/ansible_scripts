@@ -22,9 +22,14 @@ map <C-n> :cnext<CR>
 map <C-m> :cprevious<CR>
 nnoremap <leader>a :cclose<CR>
 
+let g:go_fmt_command = "goimports"
 autocmd FileType go nmap <leader>b  <Plug>(go-build)
 autocmd FileType go nmap <leader>r  <Plug>(go-run)
 
 au VimEnter * NERDTree
+au VimLeave * NERDTreeClose
+au VimResized * wincmd = 
 
 let g:user_emmet_leader_key=','
+
+let python_highlight_space_errors=0
